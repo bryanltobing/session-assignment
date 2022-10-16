@@ -1,5 +1,5 @@
 function App() {
-  return <div>Session Assigment</div>;
+  return <div>Session Assigment</div>
 }
 
-export default App;
+export default App
