@@ -22,5 +22,6 @@
   "settings": {
     "react": { "version": "detect" }
   },
+  "ignorePatterns": ["**/*.js", "**/*.cjs"],
   "rules": {}
 }
