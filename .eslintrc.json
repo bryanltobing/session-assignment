@@ -10,7 +10,8 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "overrides": [],
   "parser": "@typescript-eslint/parser",
@@ -23,5 +24,16 @@
     "react": { "version": "detect" }
   },
   "ignorePatterns": ["**/*.js", "**/*.cjs"],
-  "rules": {}
+  "rules": {
+    // react
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function"
+      }
+    ],
+
+    // typescript
+    "@typescript-eslint/no-explicit-any": "off"
+  }
 }
