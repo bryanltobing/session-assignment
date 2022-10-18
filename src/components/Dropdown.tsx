@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export type DropdownOption = {
-  label: string
+  label: string | React.ReactNode
   value: string
 }
 
@@ -9,7 +9,7 @@ type DropdownProps = {
   options: DropdownOption[]
   value?: DropdownOption
   onChange: (value: DropdownOption | undefined) => void
-  placeholder?: string
+  placeholder?: string | React.ReactNode
 }
 
 export const Dropdown = ({

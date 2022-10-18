@@ -7,27 +7,51 @@ import { Dropdown, DropdownOption } from './components/Dropdown'
 
 const dropdownOptions = [
   {
-    label: 'Design',
+    label: (
+      <p className="flex items-center gap-1">
+        <Badge color="bg-red-400" /> Design
+      </p>
+    ),
     value: 'design'
   },
   {
-    label: 'Programming',
+    label: (
+      <p className="flex items-center gap-1">
+        <Badge color="bg-yellow-400" /> Programming
+      </p>
+    ),
     value: 'programming'
   },
   {
-    label: 'Marketing',
+    label: (
+      <p className="flex items-center gap-1">
+        <Badge color="bg-green-400" /> Marketing
+      </p>
+    ),
     value: 'marketing'
   },
   {
-    label: 'Finance',
+    label: (
+      <p className="flex items-center gap-1">
+        <Badge color="bg-teal-400" /> Finance
+      </p>
+    ),
     value: 'finance'
   },
   {
-    label: 'Support',
+    label: (
+      <p className="flex items-center gap-1">
+        <Badge color="bg-blue-400" /> Support
+      </p>
+    ),
     value: 'support'
   },
   {
-    label: 'Sleep',
+    label: (
+      <p className="flex items-center gap-1">
+        <Badge color="bg-purple-400" /> Sleep
+      </p>
+    ),
     value: 'sleep'
   }
 ]
@@ -89,7 +113,11 @@ const App = () => {
               options={dropdownOptions}
               onChange={(option) => setCategory(option)}
               value={category}
-              placeholder="Choose category"
+              placeholder={
+                <p className="flex items-center gap-1">
+                  <Badge color="bg-green-400" /> Categories
+                </p>
+              }
             />
           </div>
           <div className="mt-1.5">

@@ -44,7 +44,6 @@ const Cards = ({ items }: CardsProps) => {
         case 'ArrowDown': {
           evt.preventDefault()
           if (highlightedIndex !== undefined) {
-            console.log('called')
             const newValue =
               highlightedIndex + (evt.code === 'ArrowDown' ? 1 : -1)
             if (newValue >= 0 && newValue < items.length) {
