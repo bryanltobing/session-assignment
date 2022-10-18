@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Badge } from './Badge'
 
 export type CardItem = {
@@ -13,14 +13,62 @@ type CardsProps = {
 }
 
 const Cards = ({ items }: CardsProps) => {
-  const [highlightedIndex] = useState()
+  const [highlightedIndex, setHighlightedIndex] = useState<number>()
+
   const containerRef = useRef<HTMLDivElement>(null)
+
+  const [isFocused, setIsFocused] = useState(
+    document.activeElement === containerRef.current
+  )
+
+  useEffect(() => {
+    if (isFocused) {
+      setHighlightedIndex(0)
+    } else {
+      setHighlightedIndex(undefined)
+    }
+  }, [isFocused])
+
+  useEffect(() => {
+    let containerRefValue: HTMLDivElement | null = null
+
+    if (containerRef.current) {
+      containerRefValue = containerRef.current
+    }
+
+    const handler = (evt: KeyboardEvent) => {
+      if (evt.target != containerRef.current) return
+
+      switch (evt.code) {
+        case 'ArrowUp':
+        case 'ArrowDown': {
+          evt.preventDefault()
+          if (highlightedIndex !== undefined) {
+            console.log('called')
+            const newValue =
+              highlightedIndex + (evt.code === 'ArrowDown' ? 1 : -1)
+            if (newValue >= 0 && newValue < items.length) {
+              setHighlightedIndex(newValue)
+            }
+          }
+        }
+      }
+    }
+
+    containerRefValue?.addEventListener('keydown', handler)
+
+    return () => {
+      containerRefValue?.removeEventListener('keydown', handler)
+    }
+  }, [highlightedIndex, items.length])
 
   return (
     <div
       tabIndex={0}
       ref={containerRef}
-      className="outline-none text-text-primary"
+      className="text-text-primary outline-none"
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
     >
       <ul className="flex flex-col gap-1">
         {items.map((item, index) => (
@@ -37,7 +85,13 @@ const Cards = ({ items }: CardsProps) => {
             />
             <div>
               <p>{item.title}</p>
-              <p className="text-[0.625rem] sm:text-xs text-text-secondary flex items-center gap-1">
+              <p
+                className={`text-[0.625rem] sm:text-xs ${
+                  index === highlightedIndex
+                    ? 'text-inherit'
+                    : 'text-text-secondary'
+                } flex items-center gap-1`}
+              >
                 <Badge /> {item.categoryName}
               </p>
             </div>

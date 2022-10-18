@@ -118,7 +118,7 @@ export const Autocomplete = ({
           {filteredOptions.map((option, index) => (
             <li
               key={option.value}
-              className={`px-3 py-2 hover:bg-action-hover ${
+              className={`px-3 py-2 hover:bg-action-hover cursor-pointer ${
                 index === highlightedIndex ? 'bg-action-focus text-white' : ''
               }`}
               onClick={(e) => {

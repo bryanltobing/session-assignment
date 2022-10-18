@@ -78,36 +78,38 @@ export const Dropdown = ({
     <div
       ref={containerRef}
       tabIndex={0}
-      className="relative flex items-center gap-2 px-3 py-2 rounded bg-white min-h-[31px] outline-none focus:ring focus:ring-action-focus text-text-primary"
+      className="relative gap-2 px-3 py-2 rounded bg-white min-h-[31px] outline-none focus:ring focus:ring-action-focus text-text-primary"
       onBlur={() => setIsOpen(false)}
       onClick={() => setIsOpen((prev) => !prev)}
     >
-      <span className="flex-grow">
-        {!value?.label ? placeholder : value.label}
-      </span>
-      <span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-4 h-4 text-inherit"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-          />
-        </svg>
-      </span>
+      <div className="flex items-center cursor-pointer">
+        <span className="flex-grow">
+          {!value?.label ? placeholder : value.label}
+        </span>
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4 text-inherit"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+            />
+          </svg>
+        </span>
+      </div>
 
       {isOpen && (
         <ul className="absolute bg-white top-[calc(100%+6px)] left-0 w-full py-2 rounded z-50 shadow-2xl">
           {options.map((option, index) => (
             <li
               key={option.value}
-              className={`px-3 py-2 hover:bg-action-hover ${
+              className={`px-3 py-2 hover:bg-action-hover cursor-pointer ${
                 index === highlightedIndex ? 'bg-action-focus text-white' : ''
               }`}
               onClick={(e) => {
