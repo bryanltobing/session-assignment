@@ -16,7 +16,6 @@ type AutocompleteProps = {
 export const Autocomplete = ({
   options,
   onChange,
-  value,
   placeholder
 }: AutocompleteProps) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,12 +31,17 @@ export const Autocomplete = ({
   }, [options, inputValue])
 
   const inputRef = useRef<HTMLInputElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const handleSelectOption = useCallback(
     (option: AutocompleteOption) => {
-      if (option !== value) onChange(option)
+      if (option.label !== inputValue) {
+        onChange(option)
+        setInputValue(option.label)
+        inputRef.current?.focus()
+      }
     },
-    [onChange, value]
+    [onChange, inputValue]
   )
 
   useEffect(() => {
@@ -52,7 +56,6 @@ export const Autocomplete = ({
 
       switch (evt.code) {
         case 'Enter':
-        case 'Space':
           evt.preventDefault()
           setIsOpen((prev) => !prev)
           if (isOpen) handleSelectOption(filteredOptions[highlightedIndex])
@@ -85,16 +88,24 @@ export const Autocomplete = ({
   }, [isOpen])
 
   useEffect(() => {
-    if (value) {
-      setInputValue(value.label)
+    const handleClickOutside = (evt: any) => {
+      if (containerRef.current && !containerRef.current.contains(evt.target)) {
+        setIsOpen(false)
+      }
     }
-  }, [value])
+
+    window.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <div
       className="relative flex items-center gap-2 rounded bg-white min-h-[31px] outline-none focus-within:ring focus-within:ring-action-focus text-text-primary"
-      onBlur={() => setIsOpen(false)}
       onClick={() => setIsOpen((prev) => !prev)}
+      ref={containerRef}
     >
       <input
         ref={inputRef}
@@ -113,8 +124,8 @@ export const Autocomplete = ({
         value={inputValue}
       />
 
-      {isOpen && (
-        <ul className="absolute bg-white top-[calc(100%+6px)] left-0 w-full py-2 rounded z-50 shadow-2xl">
+      {isOpen && filteredOptions.length > 0 && (
+        <ul className="absolute bg-white top-[calc(100%+6px)] left-0 w-full py-2 rounded z-40 shadow-2xl">
           {filteredOptions.map((option, index) => (
             <li
               key={option.value}

@@ -124,7 +124,6 @@ const App = () => {
             <Autocomplete
               options={autocompleteOptions}
               onChange={(option) => setFocus(option)}
-              value={focus}
               placeholder="What's your focus?"
             />
           </div>
