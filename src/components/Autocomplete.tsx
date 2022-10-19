@@ -55,6 +55,11 @@ export const Autocomplete = ({
       if (evt.target != inputRef.current) return
 
       switch (evt.code) {
+        case 'Tab':
+          if (isOpen) {
+            setIsOpen(false)
+          }
+          break
         case 'Enter':
           evt.preventDefault()
           setIsOpen((prev) => !prev)
@@ -105,7 +110,6 @@ export const Autocomplete = ({
   return (
     <div
       className="relative flex items-center gap-2 rounded bg-white min-h-[31px] outline-none focus-within:ring focus-within:ring-action-focus text-text-primary"
-      onClick={() => setIsOpen((prev) => !prev)}
       ref={containerRef}
     >
       <input
@@ -123,6 +127,7 @@ export const Autocomplete = ({
           setInputValue(evt.target.value)
         }}
         value={inputValue}
+        onFocus={() => setIsOpen((prev) => !prev)}
       />
 
       {isOpen && filteredOptions.length > 0 && (

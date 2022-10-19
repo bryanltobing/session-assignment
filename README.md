@@ -22,8 +22,8 @@ probably movie title like this would be a good idea https://raw.githubuserconten
 
 ## Input
 
-- [ ] When input focused, suggestions of title should be shown
-- [ ] Suggestions should be filtered by what user has typed
+- [x] When input focused, suggestions of title should be shown
+- [x] Suggestions should be filtered by what user has typed
 - [ ] Whenever user typed “@”, the suggestion should change to categories
 - [ ] If user pressed backspace while only “@” present, the suggestion should revert back to title one
 - [ ] choosing a category (by mouse click or enter) should close the menu
