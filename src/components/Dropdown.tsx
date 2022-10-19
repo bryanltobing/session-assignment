@@ -41,6 +41,11 @@ export const Dropdown = ({
       if (evt.target != containerRef.current) return
 
       switch (evt.code) {
+        case 'Escape':
+          if (isOpen) {
+            setIsOpen(false)
+          }
+          break
         case 'Enter':
         case 'Space':
           evt.preventDefault()

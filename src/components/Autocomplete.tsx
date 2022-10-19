@@ -34,8 +34,8 @@ export const Autocomplete = ({
   const containerRef = useRef<HTMLDivElement>(null)
 
   const handleSelectOption = useCallback(
-    (option: AutocompleteOption) => {
-      if (option.label !== inputValue) {
+    (option?: AutocompleteOption) => {
+      if (option && option?.label !== inputValue) {
         onChange(option)
         setInputValue(option.label)
         inputRef.current?.focus()
@@ -58,6 +58,7 @@ export const Autocomplete = ({
         case 'Enter':
           evt.preventDefault()
           setIsOpen((prev) => !prev)
+
           if (isOpen) handleSelectOption(filteredOptions[highlightedIndex])
           break
         case 'ArrowUp':
