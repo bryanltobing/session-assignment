@@ -73,13 +73,18 @@ const Cards = ({ items }: CardsProps) => {
         {items.map((item, index) => (
           <li
             key={item.id}
-            className={`px-2 py-2.5 hover:bg-action-hover bg-white rounded flex items-center gap-2.5 ${
+            className={`px-2 py-2.5 bg-white rounded flex items-center gap-2.5 cursor-pointer ${
               index === highlightedIndex ? 'bg-action-focus text-white' : ''
             }`}
+            onMouseEnter={() => {
+              setHighlightedIndex(index)
+              containerRef.current?.focus()
+            }}
           >
             <input
               type="checkbox"
               defaultChecked={item.isDone}
+              tabIndex={-1}
               className="rounded outline-none border-none accent-action-focus"
             />
             <div>
